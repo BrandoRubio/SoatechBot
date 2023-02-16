@@ -36,10 +36,10 @@ const MockAdapter = require('@bot-whatsapp/database/mock')
  */
 
 const flowAdios = addKeyword(['adios', 'chao', 'see you', 'sayonara', 'bye']).addAnswer('¡Nos vemos! Vuelve pronto.👋🏽').addAnswer('',
-        {
-            delay: 5000,
-            buttons: [{ body: 'Adios!👋🏽' }],
-        },null,[]
+    {
+        delay: 5000,
+        buttons: [{ body: 'Adios!👋🏽' }],
+    }, null, []
 )
 
 const flowGracias = addKeyword(['gracias', 'thank', 'Danke', 'mercie', 'grazie'])
@@ -64,7 +64,7 @@ const flowContactanos = addKeyword(['5', 'contactar', 'Contacto 📞', 'agente',
     null,
     [flowGracias]
 )
-const flowSecundario = addKeyword(['ok']).addAnswer('Esperamos haberte ayudado a resolver tus dudas.')
+const flowSecundario = addKeyword([]).addAnswer('No he comprendido tu pregunta, ¿Puedes especificar de mejor manera tus dudas?')
 
 const flowTenebrios = addKeyword(['1', 'tenebrios', 'insectos', 'cafe']).addAnswer(
     [
@@ -148,11 +148,11 @@ const flowProblemas = addKeyword(['2', 'Problemas', 'SoatechApp SoatechBox', 'co
     .addAnswer('*Paso 4️⃣*: En *SoatechApp* ve a ```Dispositivos```.')
     .addAnswer('*Paso 5️⃣*: Pulsa en el botón ```ESCANEAR DISPOSITIVOS``` para realizar la búsqueda.',
         {
-            buttons: [{ body: 'OK' }],
+            buttons: [{ body: 'Ok, gracias. 🆗' }],
         },
         null,
-        [flowSecundario]
-)
+        [flowGracias, flowSecundario]
+    )
 
 const flowDescargas = addKeyword(['descargas', '4', 'android', 'ios', 'celular', 'playstore', 'appstore']).addAnswer(
     [
@@ -175,7 +175,7 @@ const flowFallaSensor = addKeyword(['falla sensor', '1', 'sensor fallido']).addA
         '🟢 Si el problema persiste, contáctanos.👨🏻‍💻',
     ],
     {
-        buttons: [{ body: 'Ok, gracias. 🆗' }, { body: 'Contacto 📞'}]
+        buttons: [{ body: 'Ok, gracias. 🆗' }, { body: 'Contacto 📞' }]
     },
     null,
     [flowGracias, flowContactanos]
@@ -191,7 +191,7 @@ const flowDesconexion = addKeyword(['falla en red', '2', 'desconexion', 'falla d
         '🟢 Si el problema persiste, contáctanos.👨🏻‍💻',
     ],
     {
-        buttons: [{ body: 'Ok, gracias. 🆗' }, { body: 'Contacto 📞'}]
+        buttons: [{ body: 'Ok, gracias. 🆗' }, { body: 'Contacto 📞' }]
     },
     null,
     [flowGracias, flowContactanos]
@@ -206,7 +206,7 @@ const flowFallasElectricas = addKeyword(['falla en red', '3', 'desconexion', 'fa
         '🟢 Si el problema persiste, contáctanos.👨🏻‍💻',
     ],
     {
-        buttons: [{ body: 'Ok, gracias. 🆗' }, { body: 'Contacto 📞'}]
+        buttons: [{ body: 'Ok, gracias. 🆗' }, { body: 'Contacto 📞' }]
     },
     null,
     [flowGracias, flowContactanos]
@@ -221,7 +221,7 @@ const flowFallasMaquinaria = addKeyword(['falla en maquinaria', '4', 'control', 
         '🟢 Si el problema persiste, contáctanos.👨🏻‍💻',
     ],
     {
-        buttons: [{ body: 'Ok, gracias. 🆗' }, { body: 'Contacto 📞'}]
+        buttons: [{ body: 'Ok, gracias. 🆗' }, { body: 'Contacto 📞' }]
     },
     null,
     [flowGracias, flowContactanos]
@@ -234,7 +234,7 @@ const flowStranges = addKeyword(['Caracteres', '5', 'extraños', 'china', 'chino
         '🟢 Si el problema persiste, contáctanos.👨🏻‍💻',
     ],
     {
-        buttons: [{ body: 'Ok, gracias. 🆗' }, { body: 'Contacto 📞'}]
+        buttons: [{ body: 'Ok, gracias. 🆗' }, { body: 'Contacto 📞' }]
     },
     null,
     [flowGracias, flowContactanos]
@@ -258,7 +258,7 @@ const flowOtro = addKeyword(['6', 'otra', 'pregunta']).addAnswer(
         '¿Cómo puedo ayudarte?'
     ],
     {
-        buttons: [{ body: 'Ok, gracias. 🆗' }, { body: 'Contacto 📞'}]
+        buttons: [{ body: 'Ok, gracias. 🆗' }, { body: 'Contacto 📞' }]
     },
     null,
     [flowSector, flowProblemas, flowDudas, flowDescargas, flowContactanos, flowSector, flowAcuicola, flowAgricola, flowDescargas, flowDudas, flowGanadero, flowGracias, flowAdios, flowProblemas, flowSector, flowTenebrios, flowZoo]
@@ -279,11 +279,11 @@ const flowPrincipal = addKeyword(['disculpa', 'oiga', 'oye', 'saluda', 'hola', '
         ],
         null,
         null,
-        [flowSector, flowProblemas, flowDudas, flowDescargas, flowContactanos, flowOtro]
+        [flowSector, flowProblemas, flowDudas, flowContactanos, flowOtro, flowAdios, flowDescargas, flowSector, flowAcuicola, flowAgricola, flowGanadero, flowGracias, flowTenebrios, flowZoo, flowSecundario]
     )
 const main = async () => {
     const adapterDB = new MockAdapter()
-    const adapterFlow = createFlow([flowPrincipal,flowSector, flowProblemas, flowDudas, flowDescargas, flowContactanos, flowSector, flowAcuicola, flowAgricola, flowDescargas, flowDudas, flowGanadero, flowGracias, flowAdios, flowProblemas, flowSector, flowTenebrios, flowZoo])
+    const adapterFlow = createFlow([flowPrincipal, flowSector, flowAdios, flowOtro, flowProblemas, flowDudas, flowContactanos, flowAcuicola, flowAgricola, flowDescargas, flowGanadero, flowGracias, flowTenebrios, flowZoo, flowSecundario])
     const adapterProvider = createProvider(BaileysProvider)
 
     createBot({
