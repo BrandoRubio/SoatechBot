@@ -35,6 +35,8 @@ const MockAdapter = require('@bot-whatsapp/database/mock')
  * Primero declaras los submenus 1.1 y 2.1, luego el 1 y 2 y al final el principal.
  */
 
+const flowSecundario = addKeyword([]).addAnswer('No he comprendido tu pregunta, ¿Puedes especificar de mejor manera tus dudas?')
+
 const flowAdios = addKeyword(['adios', 'chao', 'see you', 'sayonara', 'bye']).addAnswer('¡Nos vemos! Vuelve pronto.👋🏽').addAnswer('',
     {
         delay: 5000,
@@ -50,7 +52,7 @@ const flowGracias = addKeyword(['gracias', 'thank', 'Danke', 'mercie', 'grazie']
             buttons: [/*{ body: 'Salúdame 🤖' },*/{ body: 'No, adios!👋🏽' }],
         },
         null,
-        [flowAdios]
+        [flowAdios, flowSecundario]
     )
 const flowContactanos = addKeyword(['5', 'contactar', 'Contacto 📞', 'agente', 'número', 'correo']).addAnswer(
     [
@@ -62,10 +64,8 @@ const flowContactanos = addKeyword(['5', 'contactar', 'Contacto 📞', 'agente',
         buttons: [{ body: 'Gracias' }],
     },
     null,
-    [flowGracias]
+    [flowGracias, flowSecundario]
 )
-const flowSecundario = addKeyword([]).addAnswer('No he comprendido tu pregunta, ¿Puedes especificar de mejor manera tus dudas?')
-
 const flowTenebrios = addKeyword(['1', 'tenebrios', 'insectos', 'cafe']).addAnswer(
     [
         'Te mostramos los planes para *Sector de Insectos/Tenebrios* 🦗🪱',
@@ -138,7 +138,7 @@ const flowSector = addKeyword(['1', 'plan', 'costos', 'contrato', 'sector']).add
     ],
     null,
     null,
-    [flowTenebrios, flowAcuicola, flowAgricola, flowGanadero, flowZoo]
+    [flowTenebrios, flowAcuicola, flowAgricola, flowGanadero, flowZoo, flowSecundario]
 )
 
 const flowProblemas = addKeyword(['2', 'Problemas', 'SoatechApp SoatechBox', 'conexión']).addAnswer(
@@ -178,7 +178,7 @@ const flowFallaSensor = addKeyword(['falla sensor', '1', 'sensor fallido']).addA
         buttons: [{ body: 'Ok, gracias. 🆗' }, { body: 'Contacto 📞' }]
     },
     null,
-    [flowGracias, flowContactanos]
+    [flowGracias, flowContactanos, flowSecundario]
 )
 const flowDesconexion = addKeyword(['falla en red', '2', 'desconexion', 'falla de red', 'no hay wifi', 'internet']).addAnswer(
     [
@@ -194,7 +194,7 @@ const flowDesconexion = addKeyword(['falla en red', '2', 'desconexion', 'falla d
         buttons: [{ body: 'Ok, gracias. 🆗' }, { body: 'Contacto 📞' }]
     },
     null,
-    [flowGracias, flowContactanos]
+    [flowGracias, flowContactanos, flowSecundario]
 )
 const flowFallasElectricas = addKeyword(['falla en red', '3', 'desconexion', 'falla de red', 'no hay wifi', 'internet']).addAnswer(
     [
@@ -209,7 +209,7 @@ const flowFallasElectricas = addKeyword(['falla en red', '3', 'desconexion', 'fa
         buttons: [{ body: 'Ok, gracias. 🆗' }, { body: 'Contacto 📞' }]
     },
     null,
-    [flowGracias, flowContactanos]
+    [flowGracias, flowContactanos, flowSecundario]
 )
 const flowFallasMaquinaria = addKeyword(['falla en maquinaria', '4', 'control', 'acciona']).addAnswer(
     [
@@ -224,7 +224,7 @@ const flowFallasMaquinaria = addKeyword(['falla en maquinaria', '4', 'control', 
         buttons: [{ body: 'Ok, gracias. 🆗' }, { body: 'Contacto 📞' }]
     },
     null,
-    [flowGracias, flowContactanos]
+    [flowGracias, flowContactanos, flowSecundario]
 )
 const flowStranges = addKeyword(['Caracteres', '5', 'extraños', 'china', 'chino', 'pantalla']).addAnswer(
     [
@@ -237,7 +237,7 @@ const flowStranges = addKeyword(['Caracteres', '5', 'extraños', 'china', 'chino
         buttons: [{ body: 'Ok, gracias. 🆗' }, { body: 'Contacto 📞' }]
     },
     null,
-    [flowGracias, flowContactanos]
+    [flowGracias, flowContactanos, flowSecundario]
 )
 const flowDudas = addKeyword(['3', 'dudas', 'SoatechBox', 'SoatechApp']).addAnswer(
     [
@@ -251,7 +251,7 @@ const flowDudas = addKeyword(['3', 'dudas', 'SoatechBox', 'SoatechApp']).addAnsw
     ],
     null,
     null,
-    [flowFallaSensor, flowDesconexion, flowFallasElectricas, flowFallasMaquinaria, flowStranges]
+    [flowFallaSensor, flowDesconexion, flowFallasElectricas, flowFallasMaquinaria, flowStranges, flowSecundario]
 )
 const flowOtro = addKeyword(['6', 'otra', 'pregunta']).addAnswer(
     [
@@ -261,7 +261,7 @@ const flowOtro = addKeyword(['6', 'otra', 'pregunta']).addAnswer(
         buttons: [{ body: 'Ok, gracias. 🆗' }, { body: 'Contacto 📞' }]
     },
     null,
-    [flowSector, flowProblemas, flowDudas, flowDescargas, flowContactanos, flowSector, flowAcuicola, flowAgricola, flowDescargas, flowDudas, flowGanadero, flowGracias, flowAdios, flowProblemas, flowSector, flowTenebrios, flowZoo]
+    [flowSector, flowProblemas, flowDudas, flowDescargas, flowContactanos, flowSector, flowAcuicola, flowAgricola, flowDescargas, flowDudas, flowGanadero, flowGracias, flowAdios, flowProblemas, flowSector, flowTenebrios, flowZoo, flowSecundario]
 )
 
 const flowPrincipal = addKeyword(['disculpa', 'oiga', 'oye', 'saluda', 'hola', 'buenas', 'buen día', 'ole', 'alo', 'que tal', 'hi', 'hello', 'hey', 'holi'])
