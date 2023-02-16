@@ -253,7 +253,7 @@ const flowDudas = addKeyword(['3', 'dudas', 'SoatechBox', 'SoatechApp']).addAnsw
     null,
     [flowFallaSensor, flowDesconexion, flowFallasElectricas, flowFallasMaquinaria, flowStranges, flowSecundario]
 )
-const flowOtro = addKeyword(['6', 'otra', 'pregunta']).addAnswer(
+const flowOtro = addKeyword(['6', 'otra', 'otro', 'pregunta', 'algo diferente']).addAnswer(
     [
         '¿Cómo puedo ayudarte?'
     ],
