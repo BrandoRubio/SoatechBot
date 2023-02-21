@@ -310,11 +310,11 @@ const flowPrincipal = addKeyword(['disculpa', 'oiga', 'oye', 'saluda', 'hola', '
         ],
         null,
         null,
-        [flowPrincipal, flowSector, flowAdios, flowOtro, flowProblemas, flowDudas, flowContactanos, flowAcuicola, flowAgricola, flowDescargas, flowGanadero, flowGracias, flowTenebrios, flowZoo, flowSecundario, flowFallaSensor, flowFallasElectricas, flowFallasMaquinaria, flowSecundario]
+        [flowSector, flowProblemas, flowDudas, flowContactanos, flowOtro, flowAdios, flowDescargas, flowSector, flowAcuicola, flowAgricola, flowGanadero, flowGracias, flowTenebrios, flowZoo, flowSecundario]
     )
 const main = async () => {
     const adapterDB = new MockAdapter()
-    const adapterFlow = createFlow([flowPrincipal, flowSector, flowAdios, flowOtro, flowProblemas, flowDudas, flowContactanos, flowAcuicola, flowAgricola, flowDescargas, flowGanadero, flowGracias, flowTenebrios, flowZoo, flowSecundario, flowFallaSensor, flowFallasElectricas, flowFallasMaquinaria, flowSecundario])
+    const adapterFlow = createFlow([flowPrincipal, flowSector, flowAdios, flowOtro, flowProblemas, flowDudas, flowContactanos, flowAcuicola, flowAgricola, flowDescargas, flowGanadero, flowGracias, flowTenebrios, flowZoo,flowFallaSensor, flowSecundario])
     const adapterProvider = createProvider(BaileysProvider)
 
     createBot({
