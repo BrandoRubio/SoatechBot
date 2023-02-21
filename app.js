@@ -35,28 +35,26 @@ const MockAdapter = require('@bot-whatsapp/database/mock')
  * Primero declaras los submenus 1.1 y 2.1, luego el 1 y 2 y al final el principal.
  */
 
-const flowSecundario = addKeyword([]).addAnswer('No he comprendido tu pregunta, ¿Puedes especificar de mejor manera tus dudas?')
+const flowSecundario = addKeyword([]).addAnswer('No he comprendido tu pregunta, dime ¿En qué te puedo ayudar? 🤖')
 
-const flowAdios = addKeyword(['adios', 'chao', 'see you', 'sayonara', 'bye']).addAnswer('¡Nos vemos! Vuelve pronto.👋🏽').addAnswer('',
+const flowAdios = addKeyword(['adios', 'chao', 'see you', 'sayonara', 'bye', 'hasta la vista', 'nos vemos', 'hasta luego', 'chao', 'hasta pronto', 'hasta mañana']).addAnswer('¡Adiós! Vuelve pronto.👋🏽').addAnswer('',
     {
-        delay: 5000,
         buttons: [{ body: 'Adios!👋🏽' }],
     }, null, []
 )
 
 const flowGracias = addKeyword(['gracias', 'thank', 'Danke', 'mercie', 'grazie'])
-    .addAnswer('¡Por nada!😁\nEstamos para ayudarte.🤖🦾')
-    .addAnswer('¿Hay algo más en qué te podemos ayudar?👀',
+    .addAnswer('¡Por nada!😁\nEstoy para ayudarte.🤖🦾')
+    .addAnswer('o, ¿Hay algo más en qué te pueda ayudar?👀',
         {
-            delay: 15000,
-            buttons: [/*{ body: 'Salúdame 🤖' },*/{ body: 'No, adios!👋🏽' }],
+            buttons: [{ body: 'Si, tengo una pregunta 🤔❓' }, { body: 'No, adiós!👋🏽' }],
         },
         null,
-        [flowAdios, flowSecundario]
+        []
     )
-const flowContactanos = addKeyword(['5', 'contactar', 'Contacto 📞', 'agente', 'número', 'correo']).addAnswer(
+const flowContactanos = addKeyword(['5', 'contactar', 'contacto', 'agente', 'número', 'correo']).addAnswer(
     [
-        'A continuación te mostramos el contacto de un asesor *Soatech*:',
+        'A continuación te muestro el contacto de un asesor *Soatech*:',
         'Fernando Calleja: \n📞+525525595609 \n📧fernando.calleja@i-condor.com.mx',
         'Toma en cuenta que puede demorar la respuesta del asesor.'
     ],
@@ -66,33 +64,62 @@ const flowContactanos = addKeyword(['5', 'contactar', 'Contacto 📞', 'agente',
     null,
     [flowGracias, flowSecundario]
 )
-const flowTenebrios = addKeyword(['1', 'tenebrios', 'insectos', 'cafe']).addAnswer(
-    [
-        'Te mostramos los planes para *Sector de Insectos/Tenebrios* 🦗🪱',
-        //'Selecciona una opción:',
-        '*Plan 1* plan soatech 2 sensores de humedad y temperatura 💲0,000',
-        '*Plan 2* plan soatech 3 sensores de humedad y temperatura 💲0,000',
-        '*Plan 3* plan soatech 4 sensores de humedad y temperatura 💲0,000',
-    ],
-    null,
-    null,
-    [flowSecundario]
-)
-const flowAcuicola = addKeyword(['2', 'acuicola', 'peces', 'pez', 'agua']).addAnswer(
-    [
-        'Te mostramos los planes para *Sector Acuícola*🐠🐟',
-        //'Selecciona una opción:',
-        '*Plan 1* plan soatech 2 sensores de humedad y temperatura 💲0,000',
-        '*Plan 2* plan soatech 3 sensores de humedad y temperatura 💲0,000',
-        '*Plan 3* plan soatech 4 sensores de humedad y temperatura 💲0,000',
-    ],
-    null,
-    null,
-    [flowSecundario]
-)
+const flowTenebrios = addKeyword(['1', 'tenebrios', 'insectos', 'cafe', 'grillo', 'chapulin', 'entomo'])
+    .addAnswer(['Te muestro los planes para *Granjas de entomocultura* 🦗🪱'])
+    .addAnswer(['*Plan a pequeña escala*:',
+        'Acceso a 4 elementos de monitoreo:',
+        'Humedad y temperatura relativa, humedad y temperatura del sustrato e iluminación.',
+        '2 entradas para control parámetros',
+        'Para: 400 m2',
+    ])
+    .addAnswer(['*Plan a mediana escala*:',
+        'Acceso a 6 elementos de monitoreo:',
+        'Humedad y temperatura relativa, humedad y temperatura del sustrato, iluminación, viento y cO2',
+        '8 entradas para control parámetro',
+        'Para: 50 m2',
+    ])
+    .addAnswer(['*Plan a gran escala*:',
+        'Acceso a 6 elementos de monitoreo:',
+        'Humedad y temperatura relativa, humedad y temperatura del sustrato, iluminación, viento y cO2',
+        'Control de parámetros  por medio de automatización',
+        'Soporte de 3 horas semanal',
+        'Para: 500-1200 m2',
+    ])
+    .addAnswer(['*Plan personalizado* de acuerdo a tus necesidades',
+        'Si es así, contesta este formulario: https://forms.gle/594C8zVTxVSbXjZ87',
+        'Al finalizar un asesor te contactará.',
+        'O bien, para cualquier claración, contacta un asesor.'],
+        {
+            buttons: [{ body: 'Gracias 🆗' }, { body: 'Contacto 📞' }]
+        },
+        null,
+        [flowGracias, flowContactanos, flowSecundario]
+    )
+const flowAcuicola = addKeyword(['2', 'acuicola', 'peces', 'pez', 'agua', 'acuicultura', 'acua'])
+    .addAnswer(['Te muestro los planes para *Granjas de Acuaponia*🐠🐟'])
+    .addAnswer(['*Plan a pequeña escala*',
+        'Acceso a 4 elementos de monitoreo',
+        'Oxígeno, conductividad, temperatura  y pH',
+        '2 entradas para control parámetros',
+        '*Para*: 200 m2'
+    ])
+    .addAnswer(['*Plan a mediana escala*',
+        'Acceso a 6 elementos de monitoreo',
+        'Oxígeno , conductividad , temperatura,ORP, iluminación y pH.',
+        '8 entradas para control parámetros',
+        'Soporte de 3 horas semanalmente',
+        '*Para*: 400 m2'
+    ])
+    .addAnswer(['*Plan a pequeña escala*',
+        'Acceso a 6 elementos de monitoreo',
+        'Oxígeno, conductividad, temperatura, ORP, iluminación, pH, viento y CO2',
+        'Control de parámetros  por medio de automatización o integración',
+        'Soporte de 3 horas semanalmente',
+        '*Para*: 200 m2'
+    ])
 const flowAgricola = addKeyword(['3', 'plantas', 'arboles', 'vegetales']).addAnswer(
     [
-        'Te mostramos los planes para *Sector Agrícola*🪴🌱',
+        'Te muestro los planes para *Sector Agrícola*🪴🌱',
         //'Selecciona una opción:',
         '*Plan 1* plan soatech 2 sensores de humedad y temperatura 💲0,000',
         '*Plan 2* plan soatech 3 sensores de humedad y temperatura 💲0,000',
@@ -102,9 +129,9 @@ const flowAgricola = addKeyword(['3', 'plantas', 'arboles', 'vegetales']).addAns
     null,
     [flowSecundario]
 )
-const flowGanadero = addKeyword(['4', 'acuicola', 'peces', 'pez', 'agua']).addAnswer(
+const flowGanadero = addKeyword(['4', 'vacas', 'gana', 'toros', 'agua']).addAnswer(
     [
-        'Te mostramos los planes para *Sector Ganadero* 🐄🐴:',
+        'Te muestro los planes para *Sector Ganadero* 🐄🐴:',
         //'Selecciona una opción:',
         '*Plan 1* plan soatech 2 sensores de humedad y temperatura 💲0,000',
         '*Plan 2* plan soatech 3 sensores de humedad y temperatura 💲0,000',
@@ -116,7 +143,7 @@ const flowGanadero = addKeyword(['4', 'acuicola', 'peces', 'pez', 'agua']).addAn
 )
 const flowZoo = addKeyword(['5', 'Zoo', 'animales', 'UMA', 'PIVMS']).addAnswer(
     [
-        'Te mostramos los planes para *Sector Ganadero* 🦁🦒:',
+        'Te muestro los planes para *Sector Ganadero* 🦁🦒:',
         //'Selecciona una opción:',
         '*Plan 1* plan soatech 2 sensores de humedad y temperatura 💲0,000',
         '*Plan 2* plan soatech 3 sensores de humedad y temperatura 💲0,000',
@@ -148,7 +175,7 @@ const flowProblemas = addKeyword(['2', 'Problemas', 'SoatechApp SoatechBox', 'co
     .addAnswer('*Paso 4️⃣*: En *SoatechApp* ve a ```Dispositivos```.')
     .addAnswer('*Paso 5️⃣*: Pulsa en el botón ```ESCANEAR DISPOSITIVOS``` para realizar la búsqueda.',
         {
-            buttons: [{ body: 'Ok, gracias. 🆗' }],
+            buttons: [{ body: 'Gracias 🆗' }],
         },
         null,
         [flowGracias, flowSecundario]
@@ -161,13 +188,15 @@ const flowDescargas = addKeyword(['descargas', '4', 'android', 'ios', 'celular',
         '📱 Manual de uso de la aplicación https://drive.google.com/file/d/1JYvmcoh2i8IZFB_A99Xyn-Aj6YGdvxh0/view?usp=sharing',
         '📜 Manual de SoatechBox https://www.example.com/ (en proceso)',
     ],
-    null,
+    {
+        buttons: [{ body: 'Gracias 🆗' }]
+    },
     null,
     [flowGracias, flowSecundario]
 )
-const flowFallaSensor = addKeyword(['falla sensor', '1', 'sensor fallido']).addAnswer(
+const flowFallaSensor = addKeyword(['falla sensor', '1', 'sensor fallido', 'error en sensor']).addAnswer(
     [
-        '¿Cómo saber si un sensor tiene fallas?',
+        '¿Cómo saber si un sensor presenta fallas?',
         '1.- En la pantalla de *SoatechBox* muestra 0',
         '2.- En la pantalla de *SoatechBox* valores exagerados',
         '3.- En las gráficas de *SoatechApp* no se muestran los datos.',
@@ -175,7 +204,7 @@ const flowFallaSensor = addKeyword(['falla sensor', '1', 'sensor fallido']).addA
         '🟢 Si el problema persiste, contáctanos.👨🏻‍💻',
     ],
     {
-        buttons: [{ body: 'Ok, gracias. 🆗' }, { body: 'Contacto 📞' }]
+        buttons: [{ body: 'Gracias 🆗' }, { body: 'Contacto 📞' }]
     },
     null,
     [flowGracias, flowContactanos, flowSecundario]
@@ -191,7 +220,7 @@ const flowDesconexion = addKeyword(['falla en red', '2', 'desconexion', 'falla d
         '🟢 Si el problema persiste, contáctanos.👨🏻‍💻',
     ],
     {
-        buttons: [{ body: 'Ok, gracias. 🆗' }, { body: 'Contacto 📞' }]
+        buttons: [{ body: 'Gracias 🆗' }, { body: 'Contacto 📞' }]
     },
     null,
     [flowGracias, flowContactanos, flowSecundario]
@@ -206,7 +235,7 @@ const flowFallasElectricas = addKeyword(['falla en red', '3', 'desconexion', 'fa
         '🟢 Si el problema persiste, contáctanos.👨🏻‍💻',
     ],
     {
-        buttons: [{ body: 'Ok, gracias. 🆗' }, { body: 'Contacto 📞' }]
+        buttons: [{ body: 'Gracias 🆗' }, { body: 'Contacto 📞' }]
     },
     null,
     [flowGracias, flowContactanos, flowSecundario]
@@ -221,12 +250,12 @@ const flowFallasMaquinaria = addKeyword(['falla en maquinaria', '4', 'control', 
         '🟢 Si el problema persiste, contáctanos.👨🏻‍💻',
     ],
     {
-        buttons: [{ body: 'Ok, gracias. 🆗' }, { body: 'Contacto 📞' }]
+        buttons: [{ body: 'Gracias 🆗' }, { body: 'Contacto 📞' }]
     },
     null,
     [flowGracias, flowContactanos, flowSecundario]
 )
-const flowStranges = addKeyword(['Caracteres', '5', 'extraños', 'china', 'chino', 'pantalla']).addAnswer(
+const flowStranges = addKeyword(['Caracteres', '5', 'extraños', 'china', 'chino', 'pantalla', 'strange']).addAnswer(
     [
         '¿La pantalla muestra caracteres extraños?',
         'Si este problema ocurre es debido a un problema de corriente.🔌',
@@ -234,12 +263,12 @@ const flowStranges = addKeyword(['Caracteres', '5', 'extraños', 'china', 'chino
         '🟢 Si el problema persiste, contáctanos.👨🏻‍💻',
     ],
     {
-        buttons: [{ body: 'Ok, gracias. 🆗' }, { body: 'Contacto 📞' }]
+        buttons: [{ body: 'Gracias 🆗' }, { body: 'Contacto 📞' }]
     },
     null,
     [flowGracias, flowContactanos, flowSecundario]
 )
-const flowDudas = addKeyword(['3', 'dudas', 'SoatechBox', 'SoatechApp']).addAnswer(
+const flowDudas = addKeyword(['3', 'dudas', 'SoatechBox', 'SoatechApp', 'preguntas', 'a cerca', 'acerca']).addAnswer(
     [
         '¿Qué dudas tienes con *SoatechBox*',
         '1️⃣ ¿Qué hacer si un sensor falla?',
@@ -247,26 +276,28 @@ const flowDudas = addKeyword(['3', 'dudas', 'SoatechBox', 'SoatechApp']).addAnsw
         '3️⃣ ¿Qué hacer en caso de fallas en mi instalación eléctrica?',
         '4️⃣ ¿No se está accionando tu maquinaria cuando el elemento sale del rango establecido?',
         '5️⃣ ¿La pantalla muestra caracteres extraños?',
-        '¿Otra duda? Contacta al soporte de *Soatech* ```Estamos para ayudarte``` 👨🏻‍💻',
+        '¿Otra duda? Contacta al soporte de *Soatech*',
     ],
+    {
+        buttons: [{ body: 'Gracias 🆗' }, { body: 'Contacto 📞' }]
+    },
     null,
-    null,
-    [flowFallaSensor, flowDesconexion, flowFallasElectricas, flowFallasMaquinaria, flowStranges, flowSecundario]
+    [flowFallaSensor, flowDesconexion, flowFallasElectricas, flowFallasMaquinaria, flowStranges, flowGracias, flowContactanos, flowContactanos, flowSecundario,]
 )
 const flowOtro = addKeyword(['6', 'otra', 'otro', 'pregunta', 'algo diferente']).addAnswer(
     [
-        '¿Cómo puedo ayudarte?'
+        'Dime, ¿Cómo puedo ayudarte?'
     ],
     {
-        buttons: [{ body: 'Ok, gracias. 🆗' }, { body: 'Contacto 📞' }]
+        buttons: [{ body: 'Contacto 📞' }]
     },
     null,
     [flowSector, flowProblemas, flowDudas, flowDescargas, flowContactanos, flowSector, flowAcuicola, flowAgricola, flowDescargas, flowDudas, flowGanadero, flowGracias, flowAdios, flowProblemas, flowSector, flowTenebrios, flowZoo, flowSecundario]
 )
 
-const flowPrincipal = addKeyword(['disculpa', 'oiga', 'oye', 'saluda', 'hola', 'buenas', 'buen día', 'ole', 'alo', 'que tal', 'hi', 'hello', 'hey', 'holi'])
-    .addAnswer(['Hola! 🙌', 'Yo soy *SoatechBot* 🤖'])
-    .addAnswer(['El asistente virtual de *Soatech* y estoy apara ayudarte.'])
+const flowPrincipal = addKeyword(['disculpa', 'oiga', 'oye', 'saluda', 'hola', 'buenas', 'buen día', 'ole', 'alo', 'que tal', 'hi', 'hello', 'hey', 'holi', 'bonjuor', 'aloha', 'como estás'])
+    .addAnswer(['Hola! 🙌', 'Yo soy *SoatechBot* 🤖',
+        'El asistente virtual de *Soatech* y estoy apara ayudarte.'])
     .addAnswer(
         [
             '¿Qué deseas consultar?',
