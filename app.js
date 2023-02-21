@@ -194,7 +194,7 @@ const flowDescargas = addKeyword(['descargas', '4', 'android', 'ios', 'celular',
     null,
     [flowGracias, flowSecundario]
 )
-const flowFallaSensor = addKeyword(['falla sensor', '1', 'sensor fallido', 'error en sensor']).addAnswer(
+const flowFallaSensor = addKeyword(['falla en sensor', 'falla en el sensor', '1', 'sensor fallido', 'error en el sensor']).addAnswer(
     [
         '¿Cómo saber si un sensor presenta fallas?',
         '1.- En la pantalla de *SoatechBox* muestra 0',
@@ -282,7 +282,7 @@ const flowDudas = addKeyword(['3', 'dudas', 'SoatechBox', 'SoatechApp', 'pregunt
         buttons: [{ body: 'Gracias 🆗' }, { body: 'Contacto 📞' }]
     },
     null,
-    [flowFallaSensor, flowDesconexion, flowFallasElectricas, flowFallasMaquinaria, flowStranges, flowGracias, flowContactanos, flowContactanos, flowSecundario,]
+    [flowFallaSensor, flowDesconexion, flowFallasElectricas, flowFallasMaquinaria, flowStranges, flowGracias, flowContactanos, flowContactanos, flowSecundario]
 )
 const flowOtro = addKeyword(['6', 'otra', 'otro', 'pregunta', 'algo diferente']).addAnswer(
     [
@@ -310,11 +310,11 @@ const flowPrincipal = addKeyword(['disculpa', 'oiga', 'oye', 'saluda', 'hola', '
         ],
         null,
         null,
-        [flowSector, flowProblemas, flowDudas, flowContactanos, flowOtro, flowAdios, flowDescargas, flowSector, flowAcuicola, flowAgricola, flowGanadero, flowGracias, flowTenebrios, flowZoo, flowSecundario]
+        [flowSector, flowProblemas, flowDudas, flowContactanos, flowOtro, flowAdios, flowDescargas, flowSector, flowAcuicola, flowAgricola, flowGanadero, flowGracias, flowTenebrios, flowZoo, flowFallaSensor, flowSecundario]
     )
 const main = async () => {
     const adapterDB = new MockAdapter()
-    const adapterFlow = createFlow([flowPrincipal, flowSector, flowAdios, flowOtro, flowProblemas, flowDudas, flowContactanos, flowAcuicola, flowAgricola, flowDescargas, flowGanadero, flowGracias, flowTenebrios, flowZoo,flowFallaSensor, flowSecundario])
+    const adapterFlow = createFlow([flowPrincipal, flowSector, flowAdios, flowOtro, flowProblemas, flowDudas, flowContactanos, flowAcuicola, flowAgricola, flowDescargas, flowGanadero, flowGracias, flowTenebrios, flowZoo, flowFallaSensor, flowSecundario])
     const adapterProvider = createProvider(BaileysProvider)
 
     createBot({
