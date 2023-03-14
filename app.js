@@ -225,7 +225,7 @@ const flowDesconexion = addKeyword(['falla en red', '2', 'desconexion', 'falla d
     null,
     [flowGracias, flowContactanos, flowSecundario]
 )
-const flowFallasElectricas = addKeyword(['falla en red', '3', 'desconexion', 'falla de red', 'no hay wifi', 'internet']).addAnswer(
+const flowFallasElectricas = addKeyword(['no hay luz', '3', 'corriente', 'electri']).addAnswer(
     [
         '¿Qué hacer en caso de fallas en mi instalación eléctrica?',
         'Esto principalmente afecta a *SoatechBox*.',
